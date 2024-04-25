@@ -7,22 +7,24 @@ using Random = UnityEngine.Random;
 public class Puckmove : MonoBehaviour
 {
     public float speed = 5f;
-    private void Update()
+    private Rigidbody2D rb;
     
+    
+    void Start()
     {
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            AndStart();
-        }
+        rb = GetComponent<Rigidbody2D>(); // Get the Rigidbody2D component attached to the object
     }
 
-    void AndStart()
+    void FixedUpdate()
     {
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        // Calculate the current velocity magnitude
+        float currentSpeed = rb.velocity.magnitude;
 
-        if (rb != null)
+        // Check if the current speed exceeds the maximum speed
+        if (currentSpeed > speed)
         {
-            rb.velocity = Vector3.right * speed;
+            // Limit the velocity to the maximum speed
+            rb.velocity = rb.velocity.normalized * speed;
         }
     }
 }

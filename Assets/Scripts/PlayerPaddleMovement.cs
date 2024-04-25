@@ -8,6 +8,7 @@ public class PlayerPaddleMovement : MonoBehaviour
     private bool wasJustClicked = true;
     private bool canMove;
     private Vector2 playerSize;
+    private Vector2 startingPosition;
 
     private Rigidbody2D rb;
 
@@ -30,8 +31,10 @@ public class PlayerPaddleMovement : MonoBehaviour
 
     private void Start()
     {
+       
         playerSize = gameObject.GetComponent<SpriteRenderer>().bounds.extents;
         rb = GetComponent<Rigidbody2D>();
+        startingPosition = rb.position; 
 
         playerBoundary = new Boundary(BorderBoundaries.GetChild(0).position.y,
             BorderBoundaries.GetChild(1).position.y,
@@ -77,5 +80,10 @@ public class PlayerPaddleMovement : MonoBehaviour
         }
 
 }
+
+    public void ResetPosition()
+    {
+        rb.position = startingPosition;
+    }
 }
    
